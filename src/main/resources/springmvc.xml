@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+">
+    <!--开启组件扫描,主要作用在controller中-->
+    <context:component-scan base-package="com.itheima"/>
+    <mvc:annotation-driven/>
+    <!--    视图解析器的对象的创建-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--前端控制器,对哪些静态资源不进行-->
+    <mvc:resources mapping="/css/" location="/css/**"/>
+    <mvc:resources mapping="/images/" location="/images/**"/>
+    <mvc:resources mapping="/js/" location="/js/**"/>
+    <!--   表示如果请求对象在controll中找不到匹配的地址,那就交给tomcat服务器寻找,
+          而tomcat服务器是可以调用静态资源的,权限是开放的-->
+    <mvc:default-servlet-handler/>
+</beans>
